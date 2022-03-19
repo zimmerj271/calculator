@@ -125,6 +125,14 @@ function makeNegative(str) {
     }
 }
 
+function divideByZero(str) {
+    return /\/\s+0/.test(str);
+}
+
+function checkDisplayStr(str) {
+    return /[\.\+\*\/-]+\s*?$/.test(str);
+}
+
 const display = document.getElementById("display"); // variable to contain display element
 const displayText = display.getElementsByTagName("p")[0];  // variable to contain <p> element that contains display text. getElementsByTagName returns an array
 
@@ -149,8 +157,15 @@ buttons.forEach(bttn => bttn.addEventListener("click", (e) => {
         }
     } else if (bttn.id === "equal") { // if button is equal then calculate expression
         // calculate(tokenize(displayText.textContent));
-        let result = calculate(splitString(displayText.textContent));
-        result = shortenFloat(result)
+        let result;
+        if(divideByZero(displayText.textContent)) {
+            result = "To infinity and beyond!"
+        } else if (checkDisplayStr(displayText.textContent)) {
+            result = "ERROR";
+        } else {
+            result = calculate(splitString(displayText.textContent));
+            result = shortenFloat(result);
+        }
         displayText.textContent = result;
     }
     if(bttn.id === "clear") {  // if clear button, remove all text and replace with "0"

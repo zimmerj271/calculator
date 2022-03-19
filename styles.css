@@ -53,5 +53,13 @@ body {
 
 button {
     font-size: 36px;
+    background-color: sandybrown;
+}
+
+.number {
     background-color: grey;
+}
+
+.operator,#negative {
+    background-color: darkgray;
 }
