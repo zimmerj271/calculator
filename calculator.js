@@ -115,6 +115,7 @@ function backspace(str) {
     }
 }
 
+// function to take number in display and convert to negative value
 function makeNegative(str) {
     // if str contains whitespace or math operators, make no change
     if(/[-\+\*\/\s/]/.test(str)) {
@@ -125,10 +126,12 @@ function makeNegative(str) {
     }
 }
 
+// function to detect a divide by zero condition
 function divideByZero(str) {
     return /\/\s+0/.test(str);
 }
 
+// function to detect if calculation entered is not complete
 function checkDisplayStr(str) {
     return /[\.\+\*\/-]+\s*?$/.test(str);
 }
@@ -137,8 +140,11 @@ const display = document.getElementById("display"); // variable to contain displ
 const displayText = display.getElementsByTagName("p")[0];  // variable to contain <p> element that contains display text. getElementsByTagName returns an array
 
 const buttons = document.querySelectorAll("button");  // get array of button elements
+
 // loop through each button and add an event listener for "click"
 buttons.forEach(bttn => bttn.addEventListener("click", (e) => {
+
+
     if(bttn.className === "operator") {  // if button class is "operator"
         if(!(displayText.textContent === "0")) {
             displayText.textContent = `${displayText.textContent} ${bttn.textContent} `;
@@ -171,7 +177,54 @@ buttons.forEach(bttn => bttn.addEventListener("click", (e) => {
     if(bttn.id === "clear") {  // if clear button, remove all text and replace with "0"
         displayText.textContent = clear();
     }
-}))
+}));
+
+// event listeners for keydown event and redirect to corresponding button
+document.addEventListener("keydown", (event) => {
+    const ec = event.code;      // variable for event code to look for.  Event code is specified for each key on the keyboard
+    const ek = event.key;       // variable for event key.  Instead of code -> key, looks for ascii char -> key
+
+     if (ec === "NumpadAdd" || ek === "+") {
+        document.getElementById("add").click();
+    } else if (ec === "NumpadSubtract" || ec === "Minus") {
+        document.getElementById("subtract" || ek === "-").click();
+    } else if (ec === "NumpadEnter" || ec === "Enter") {
+        document.getElementById("equal").click();
+    } else if (ec === "NumpadMultiply" || ek === "*") {
+        document.getElementById("multiply").click();
+    } else if (ec === "NumpadDivide" || ec === "Slash") {
+        event.preventDefault();      // prevent browser from starting 'find'
+        document.getElementById("divide").click();
+    } else if (ec === "Backspace") {
+        document.getElementById("backspace").click();
+    } else if (ec === "Escape") {
+        document.getElementById("clear").click();
+    } else if (ec === "Numpad0" || ec === "Digit0") {
+        document.getElementById("zero").click();
+    } else if (ec === "Numpad1" || ec === "Digit1") {
+        document.getElementById("one").click();
+    } else if (ec === "Numpad2" || ec === "Digit2") {
+        document.getElementById("two").click();
+    } else if (ec === "Numpad3" || ec === "Digit3") {
+        document.getElementById("three").click();
+    } else if (ec === "Numpad4" || ec === "Digit4") {
+        document.getElementById("four").click();
+    } else if (ec === "Numpad5" || ec === "Digit5") {
+        document.getElementById("five").click();
+    } else if (ec === "Numpad6" || ec === "Digit6") {
+        document.getElementById("six").click();
+    } else if (ec === "Numpad7" || ec === "Digit7") {
+        document.getElementById("seven").click();
+    } else if (ec === "Numpad8" || ec === "Digit8") {
+        document.getElementById("eight").click();
+    } else if (ec === "Numpad9" || ec === "Digit9") {
+        document.getElementById("nine").click();
+    } else if (ec === "NumpadDecimal" || ec === "Period") {
+        document.getElementById("decimal").click();
+    }
+
+});
+
 
 // set initial display
 displayText.textContent = clear();
